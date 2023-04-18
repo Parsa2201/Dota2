@@ -10,7 +10,7 @@ public class DesktopLauncher
 	{
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("Dota2");
+		config.setTitle("Dota3s");
 		config.useVsync(true);
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
