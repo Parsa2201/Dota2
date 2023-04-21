@@ -4,6 +4,11 @@ import com.ap.dota2.MainMenu.MainMenu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * This class is the main class of the game.
+ * @author Parsa Salamatipour
+ * @version 1.0
+ */
 public class Dota2Game extends Game
 {
 	public SpriteBatch batch;

@@ -9,9 +9,11 @@ public class DesktopLauncher
 	{
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
-		config.setForegroundFPS(60);
-		config.setTitle("Dota2");
-		config.useVsync(true);
+		// set configurations
+		config.setForegroundFPS(60); // fps
+		config.setTitle("Dota2");    // title
+		config.setMaximized(true);   // maximize
+		config.useVsync(true);       // vsync
 
 		new Lwjgl3Application(new Dota2Game(), config);
 	}
