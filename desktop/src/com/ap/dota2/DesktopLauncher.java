@@ -2,7 +2,6 @@ package com.ap.dota2;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.ap.dota2.MyGdxGame;
 
 public class DesktopLauncher
 {
@@ -12,6 +11,6 @@ public class DesktopLauncher
 		config.setForegroundFPS(60);
 		config.setTitle("Dota2");
 		config.useVsync(true);
-		new Lwjgl3Application(new MyGdxGame(), config);
+		new Lwjgl3Application(new Dota2Game(), config);
 	}
 }
