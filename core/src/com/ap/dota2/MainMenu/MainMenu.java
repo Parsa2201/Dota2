@@ -47,12 +47,12 @@ public class MainMenu implements Screen
 		NinePatch patch = new NinePatch(new Texture("button1.png"), 12, 12, 12, 12);
 		
 		BitmapFont myFont = new BitmapFont();
-		myFont.setColor(0f, 1f, 0f, 1f);
 		
 		NinePatchDrawable drawable = new NinePatchDrawable(patch);
 
 		TextButtonStyle myTextButtonStyle = new TextButtonStyle(drawable, drawable, drawable, myFont);
-		
+		myTextButtonStyle.fontColor = Color.RED;
+
 		TextButton myButton = new TextButton("hello bluh bluh bluh bluh bluh bluh bluh bluh world", myTextButtonStyle);
 
 		table.add(myButton);
