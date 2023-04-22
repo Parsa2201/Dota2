@@ -5,11 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -42,11 +44,18 @@ public class MainMenu implements Screen
 
 		// TODO: Add buttons to the table.
 
-		NinePatch patch = new NinePatch(new Texture(Gdx.files.internal("knob.png")), 12, 12, 12, 12);
+		NinePatch patch = new NinePatch(new Texture("button1.png"), 12, 12, 12, 12);
 		
-		// TextButtonStyle style = new TextButtonStyle(patch, patch, patch, 0, 0, 0, 0, new BitmapFont(), new Color(0.3f, 0.2f, 0.8f, 1f), new Color(0, 0, 0, 1f), new Color(0, 0, 0, 1f));
+		BitmapFont myFont = new BitmapFont();
+		myFont.setColor(0f, 1f, 0f, 1f);
 		
-		TextButton myButton = new TextButton("hello world", style);
+		NinePatchDrawable drawable = new NinePatchDrawable(patch);
+
+		TextButtonStyle myTextButtonStyle = new TextButtonStyle(drawable, drawable, drawable, myFont);
+		
+		TextButton myButton = new TextButton("hello bluh bluh bluh bluh bluh bluh bluh bluh world", myTextButtonStyle);
+
+		table.add(myButton);
 	}
 
 	@Override
