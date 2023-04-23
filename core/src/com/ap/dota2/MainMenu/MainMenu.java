@@ -24,31 +24,12 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
  */
 public class MainMenu implements Screen
 {
-	private final Dota2Game game;
+	public final Dota2Game game;
 	private final Stage stage;
 	private final Table table;
+	private final UI ui;
 
-	/**
-	 * create a new button (first edition - TextButton only)
-	 * @param Image
-	 * @param massage
-	 * @param color
-	 * @return Button
-	 */
-	public static Button makeNewButton (String Image, @Null String massage, @Null Color color) {
-		NinePatch patch = new NinePatch(new Texture(Image), 12, 12, 12, 12);
-		
-		BitmapFont myFont = new BitmapFont();
-		
-		NinePatchDrawable drawable = new NinePatchDrawable(patch);
 
-		TextButtonStyle myTextButtonStyle = new TextButtonStyle(drawable, drawable, drawable, myFont);
-		if (color != null) myTextButtonStyle.fontColor = color;
-		else myTextButtonStyle.fontColor = Color.RED;
-		
-		TextButton myButton = new TextButton(massage, myTextButtonStyle);
-		return myButton;
-	}
 	
 	/**
 	 * Constructor for the main menu.
@@ -58,31 +39,11 @@ public class MainMenu implements Screen
 	{
 		this.game = game;
 		this.stage = new Stage(new ExtendViewport(1920, 1080));
-		Gdx.input.setInputProcessor(stage);
-
 		this.table = new Table();
-		table.setFillParent(true);
-		stage.addActor(table);
 
-		table.setDebug(true); // This is optional, but enables debug lines for tables.
+		ui = new UI(this, stage, table);
 
-		//!
-		NinePatch patch = new NinePatch(new Texture("button1.png"), 12, 12, 12, 12);
-		
-		BitmapFont myFont = new BitmapFont();
-		
-		NinePatchDrawable drawable = new NinePatchDrawable(patch);
-
-		TextButtonStyle myTextButtonStyle = new TextButtonStyle(drawable, drawable, drawable, myFont);
-		myTextButtonStyle.fontColor = Color.RED;
-
-		TextButton myButton = new TextButton("hello bluh bluh bluh bluh bluh bluh bluh bluh world", myTextButtonStyle);
-
-		table.add(myButton);
-		///
-
-		table.row(); //!
-		table.add(makeNewButton("button3.png", "helloooooooooooooooooooo world", Color.BLUE));
+		ui.init();
 	}
 
 	@Override

@@ -12,6 +12,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Dota2Game extends Game
 {
 	public SpriteBatch batch;
+	/**
+	 * This is a boolean that is used to determine whether the game is in debug mode or not.
+	 */
+	public static final boolean DEBUG = true;
 
 	@Override
 	public void create()
