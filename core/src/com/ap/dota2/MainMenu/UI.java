@@ -60,7 +60,7 @@ public class UI
 	 * @param Image - the image of the button
 	 * @param massage - the massage of the button
 	 * @param color - the color of the button
-	 * @return Button
+	 * @return Button - ?
 	 */
 	public static Button makeNewButton (String Image, @Null String massage, @Null Color color)
 	{
