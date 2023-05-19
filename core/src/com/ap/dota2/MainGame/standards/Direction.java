@@ -1,4 +1,4 @@
-package com.ap.dota2.MainGame.camera;
+package com.ap.dota2.MainGame.standards;
 
 public enum Direction
 {

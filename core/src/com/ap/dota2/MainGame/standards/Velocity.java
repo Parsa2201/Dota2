@@ -36,4 +36,24 @@ public class Velocity
         this.x = (int) (speed * Math.cos(Math.toRadians(angle)));
         this.y = (int) (speed * Math.sin(Math.toRadians(angle)));
     }
+
+    public Velocity onlyX()
+    {
+        return new Velocity(x, 0);
+    }
+
+    public Velocity onlyY()
+    {
+        return new Velocity(0, y);
+    }
+
+    public Velocity onlyNegX()
+    {
+        return new Velocity(-x, 0);
+    }
+
+    public Velocity onlyNegY()
+    {
+        return new Velocity(0, -y);
+    }
 }

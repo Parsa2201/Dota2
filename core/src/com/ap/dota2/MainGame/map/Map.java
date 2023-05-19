@@ -20,7 +20,7 @@ public class Map implements DotaDrawable, Disposable, InputProcessor, HasAction
     {
         background = new Texture("map - 2.png");
         obstacles = new Obstacles();
-        entities = new Entities();
+        entities = new Entities(this);
     }
 
     @Override

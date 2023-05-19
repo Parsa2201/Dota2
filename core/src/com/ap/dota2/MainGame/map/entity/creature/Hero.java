@@ -1,30 +1,55 @@
 package com.ap.dota2.MainGame.map.entity.creature;
 
+import com.ap.dota2.MainGame.standards.Direction;
+import com.ap.dota2.MainGame.standards.Velocity;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Hero extends Creature
 {
+    private Texture texture;
+    private Direction direction;
+
     public Hero(int x, int y)
     {
         super(x, y);
+        texture = new Texture("hero1.png");
+        velocity.setX(300);
+        velocity.setY(300);
+        direction = Direction.NONE;
     }
 
     @Override
     public void draw(Batch batch)
     {
-
+        batch.draw(texture, position.getX(), position.getY(), ((texture.getWidth() * 0.2f)), (texture.getHeight() * 0.2f));
     }
 
     @Override
     public void action(float delta)
     {
-
+        move(delta);
     }
 
     @Override
     public void move(float delta)
     {
-
+        switch (direction)
+        {
+            case UP:
+                position.addVelocity(velocity.onlyY(), delta);
+                break;
+            case DOWN:
+                position.addVelocity(velocity.onlyNegY(), delta);
+                break;
+            case LEFT:
+                position.addVelocity(velocity.onlyNegX(), delta);
+                break;
+            case RIGHT:
+                position.addVelocity(velocity.onlyX(), delta);
+                break;
+        }
     }
 
     @Override
@@ -36,12 +61,32 @@ public class Hero extends Creature
     @Override
     public boolean keyDown(int keycode)
     {
-        return false;
+        System.out.println(keycode);
+        switch (keycode)
+        {
+            case Input.Keys.UP | Input.Keys.W:
+                direction = Direction.UP;
+                return true;
+            case Input.Keys.DOWN | Input.Keys.S:
+                direction = Direction.DOWN;
+                return true;
+            case Input.Keys.LEFT | Input.Keys.A:
+                direction = Direction.LEFT;
+                return true;
+            case Input.Keys.RIGHT | Input.Keys.D:
+                direction = Direction.RIGHT;
+                return true;
+
+            default:
+                direction = Direction.NONE;
+                return false;
+        }
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
+        direction = Direction.NONE;
         return false;
     }
 

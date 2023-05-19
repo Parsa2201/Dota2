@@ -1,5 +1,7 @@
 package com.ap.dota2.MainGame.camera;
 
+import com.ap.dota2.MainGame.map.Map;
+import com.ap.dota2.MainGame.standards.Direction;
 import com.ap.dota2.MainGame.standards.HasAction;
 import com.ap.dota2.MainGame.standards.Resizable;
 import com.ap.dota2.MainGame.standards.Velocity;
@@ -22,6 +24,7 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
         // set the SpiritBatch's projection matrix to the camera's combined matrix
         batch.setProjectionMatrix(camera.combined);
 
+        direction = Direction.NONE;
         velocity = new Velocity(500, 500);
     }
 
@@ -94,25 +97,63 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
     @Override
     public boolean scrolled(float amountX, float amountY)
     {
-        return false;
+        if(amountY > 0 && camera.zoom > 0.5f)
+            camera.zoom -= amountY * 0.1f;
+        else if(amountY < 0 && camera.zoom < 1.5f)
+            camera.zoom -= amountY * 0.1f;
+        if(camera.zoom < 0.5f)
+            camera.zoom = 0.5f;
+        else if(camera.zoom > 1.5f)
+            camera.zoom = 1.5f;
+
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
+        return true;
     }
 
     @Override
     public void action(float delta)
     {
-        if(direction == Direction.NONE)
-            return;
 
-        if(direction == Direction.LEFT)
-            camera.position.x -= velocity.getX() * delta;
-        else if(direction == Direction.RIGHT)
-            camera.position.x += velocity.getX() * delta;
-        else if(direction == Direction.DOWN)
-            camera.position.y += velocity.getY() * delta;
-        else if(direction == Direction.UP)
-            camera.position.y -= velocity.getY() * delta;
+        switch (direction)
+        {
+            case LEFT:
+                camera.position.x -= velocity.getX() * delta;
+                verifyPosition();
+                break;
+            case RIGHT:
+                camera.position.x += velocity.getX() * delta;
+                verifyPosition();
+                break;
+            case DOWN:
+                camera.position.y += velocity.getY() * delta;
+                verifyPosition();
+                break;
+            case UP:
+                camera.position.y -= velocity.getY() * delta;
+                verifyPosition();
+                break;
+            default:
+                break;
+        }
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+    }
+
+    private void verifyPosition()
+    {
+        // has some bugs
+
+        if(camera.position.x < camera.viewportWidth / 2)
+            camera.position.x = camera.viewportWidth / 2;
+        else if(camera.position.x > Map.WIDTH - camera.viewportWidth / 2)
+            camera.position.x = Map.WIDTH - camera.viewportWidth / 2;
+
+        if(camera.position.y < camera.viewportHeight / 2)
+            camera.position.y = camera.viewportHeight / 2;
+        else if(camera.position.y > Map.HEIGHT - camera.viewportHeight / 2)
+            camera.position.y = Map.HEIGHT - camera.viewportHeight / 2;
     }
 }
