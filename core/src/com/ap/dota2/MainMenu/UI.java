@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -48,6 +49,8 @@ public class UI
 
 		TextButton myButton = new TextButton("hello bluh bluh bluh bluh bluh bluh bluh bluh world", myTextButtonStyle);
 
+
+
 		rootTable.add(myButton);
 		///
 
@@ -62,7 +65,7 @@ public class UI
 	 * @param color - the color of the button
 	 * @return Button - ?
 	 */
-	public static Button makeNewButton (String Image, @Null String massage, @Null Color color)
+	public Button makeNewButton (String Image, @Null String massage, @Null Color color)
 	{
 		NinePatch patch = new NinePatch(new Texture(Image), 12, 12, 12, 12);
 
@@ -75,6 +78,17 @@ public class UI
 		else myTextButtonStyle.fontColor = Color.RED;
 
 		TextButton myButton = new TextButton(massage, myTextButtonStyle);
+
+		myButton.addListener(new InputListener()
+		{
+			@Override
+			public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button)
+			{
+				mainMenu.startGame();
+				return true;
+			}
+		});
+
 		return myButton;
 	}
 
