@@ -26,7 +26,7 @@ public class Map implements DotaDrawable, Disposable, InputProcessor, HasAction
     @Override
     public void draw(Batch batch)
     {
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, 0, WIDTH, HEIGHT);
         obstacles.draw(batch);
         entities.draw(batch);
     }
