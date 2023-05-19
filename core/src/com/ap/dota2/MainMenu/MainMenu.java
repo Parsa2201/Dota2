@@ -38,6 +38,12 @@ public class MainMenu implements Screen
 		ui.init();
 	}
 
+	public void startGame()
+	{
+		game.setScreen(new com.ap.dota2.MainGame.MainGame(game));
+		dispose();
+	}
+
 	@Override
 	public void show()
 	{
