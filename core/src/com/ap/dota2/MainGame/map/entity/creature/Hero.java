@@ -64,16 +64,16 @@ public class Hero extends Creature
         System.out.println(keycode);
         switch (keycode)
         {
-            case Input.Keys.UP | Input.Keys.W:
+            case Input.Keys.UP: case Input.Keys.W:
                 direction = Direction.UP;
                 return true;
-            case Input.Keys.DOWN | Input.Keys.S:
+            case Input.Keys.DOWN: case Input.Keys.S:
                 direction = Direction.DOWN;
                 return true;
-            case Input.Keys.LEFT | Input.Keys.A:
+            case Input.Keys.LEFT: case Input.Keys.A:
                 direction = Direction.LEFT;
                 return true;
-            case Input.Keys.RIGHT | Input.Keys.D:
+            case Input.Keys.RIGHT: case Input.Keys.D:
                 direction = Direction.RIGHT;
                 return true;
 
