@@ -49,6 +49,8 @@ public class Hero extends Creature
             case RIGHT:
                 position.addVelocity(velocity.onlyX(), delta);
                 break;
+            default:
+                break;
         }
     }
 
