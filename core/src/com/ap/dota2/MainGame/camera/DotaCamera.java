@@ -11,149 +11,166 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class DotaCamera implements InputProcessor, Resizable, HasAction
 {
-    private final Batch batch;
-    private final OrthographicCamera camera;
-    private Direction direction;
-    private Velocity velocity;
+	private final Batch batch;
+	private final OrthographicCamera camera;
+	private Direction direction;
+	private Velocity velocity;
 
-    public DotaCamera(Batch batch, int width, int height)
-    {
-        this.batch = batch;
-        camera = new OrthographicCamera(width, height);
+	public DotaCamera(Batch batch, int width, int height)
+	{
+		this.batch = batch;
+		camera = new OrthographicCamera(width, height);
 
-        // set the SpiritBatch's projection matrix to the camera's combined matrix
-        batch.setProjectionMatrix(camera.combined);
+		// set the SpiritBatch's projection matrix to the camera's combined matrix
+		batch.setProjectionMatrix(camera.combined);
 
-        direction = Direction.NONE;
-        velocity = new Velocity(500, 500);
-    }
+		direction = Direction.NONE;
+		velocity = new Velocity(500, 500);
+	}
 
-    @Override
-    public void resize(int width, int height)
-    {
-        camera.setToOrtho(false, width, height);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-    }
+	@Override
+	public void resize(int width, int height)
+	{
+		camera.setToOrtho(false, width, height);
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+	}
 
-    @Override
-    public boolean keyDown(int keycode)
-    {
-        return false;
-    }
+	@Override
+	public boolean keyDown(int keycode)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean keyUp(int keycode)
-    {
-        return false;
-    }
+	@Override
+	public boolean keyUp(int keycode)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean keyTyped(char character)
-    {
-        return false;
-    }
+	@Override
+	public boolean keyTyped(char character)
+	{
+		switch (character) {
+			case '+':
+				camera.zoom += 0.1f;
+				if(camera.zoom > 1.5f) camera.zoom = 1.5f;
+				camera.update();
+				batch.setProjectionMatrix(camera.combined);
+				return true;
+			
+			case '-':
+				camera.zoom -= 0.1f;
+				if(camera.zoom < 0.5f) camera.zoom = 0.5f;
+				camera.update();
+				batch.setProjectionMatrix(camera.combined);
+				return true;
+		
+			default:
+				return false;
+		}
+	}
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button)
-    {
-        return false;
-    }
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button)
-    {
-        return false;
-    }
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer)
-    {
-        return false;
-    }
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY)
-    {
-        //camera.position.set(screenX, screenY, 0);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
+	@Override
+	public boolean mouseMoved(int screenX, int screenY)
+	{
+		//camera.position.set(screenX, screenY, 0);
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 
 
-        if (screenX < 10)
-            direction = Direction.LEFT;
-        else if (screenX > camera.viewportWidth - 10)
-            direction = Direction.RIGHT;
-        else if (screenY < 10)
-            direction = Direction.DOWN;
-        else if (screenY > camera.viewportHeight - 10)
-            direction = Direction.UP;
-        else
-            direction = Direction.NONE;
+		if (screenX < 10)
+			direction = Direction.LEFT;
+		else if (screenX > camera.viewportWidth - 10)
+			direction = Direction.RIGHT;
+		else if (screenY < 10)
+			direction = Direction.DOWN;
+		else if (screenY > camera.viewportHeight - 10)
+			direction = Direction.UP;
+		else
+			direction = Direction.NONE;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean scrolled(float amountX, float amountY)
-    {
-        if(amountY > 0 && camera.zoom > 0.5f)
-            camera.zoom -= amountY * 0.1f;
-        else if(amountY < 0 && camera.zoom < 1.5f)
-            camera.zoom -= amountY * 0.1f;
-        if(camera.zoom < 0.5f)
-            camera.zoom = 0.5f;
-        else if(camera.zoom > 1.5f)
-            camera.zoom = 1.5f;
+	@Override
+	public boolean scrolled(float amountX, float amountY)
+	{
+		if(amountY > 0 && camera.zoom > 0.5f)
+			camera.zoom -= amountY * 0.1f;
+		else if(amountY < 0 && camera.zoom < 1.5f)
+			camera.zoom -= amountY * 0.1f;
+		if(camera.zoom < 0.5f)
+			camera.zoom = 0.5f;
+		else if(camera.zoom > 1.5f)
+			camera.zoom = 1.5f;
 
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public void action(float delta)
-    {
+	@Override
+	public void action(float delta)
+	{
 
-        switch (direction)
-        {
-            case LEFT:
-                camera.position.x -= velocity.getX() * delta;
-                verifyPosition();
-                break;
-            case RIGHT:
-                camera.position.x += velocity.getX() * delta;
-                verifyPosition();
-                break;
-            case DOWN:
-                camera.position.y += velocity.getY() * delta;
-                verifyPosition();
-                break;
-            case UP:
-                camera.position.y -= velocity.getY() * delta;
-                verifyPosition();
-                break;
-            default:
-                break;
-        }
+		switch (direction)
+		{
+			case LEFT:
+				camera.position.x -= velocity.getX() * delta;
+				verifyPosition();
+				break;
+			case RIGHT:
+				camera.position.x += velocity.getX() * delta;
+				verifyPosition();
+				break;
+			case DOWN:
+				camera.position.y += velocity.getY() * delta;
+				verifyPosition();
+				break;
+			case UP:
+				camera.position.y -= velocity.getY() * delta;
+				verifyPosition();
+				break;
+			default:
+				break;
+		}
 
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-    }
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+	}
 
-    private void verifyPosition()
-    {
-        // has some bugs
+	private void verifyPosition()
+	{
+		// has some bugs
 
-        if(camera.position.x < camera.viewportWidth / 2)
-            camera.position.x = camera.viewportWidth / 2;
-        else if(camera.position.x > Map.WIDTH - camera.viewportWidth / 2)
-            camera.position.x = Map.WIDTH - camera.viewportWidth / 2;
+		if(camera.position.x < camera.viewportWidth / 2)
+			camera.position.x = camera.viewportWidth / 2;
+		else if(camera.position.x > Map.WIDTH - camera.viewportWidth / 2)
+			camera.position.x = Map.WIDTH - camera.viewportWidth / 2;
 
-        if(camera.position.y < camera.viewportHeight / 2)
-            camera.position.y = camera.viewportHeight / 2;
-        else if(camera.position.y > Map.HEIGHT - camera.viewportHeight / 2)
-            camera.position.y = Map.HEIGHT - camera.viewportHeight / 2;
-    }
+		if(camera.position.y < camera.viewportHeight / 2)
+			camera.position.y = camera.viewportHeight / 2;
+		else if(camera.position.y > Map.HEIGHT - camera.viewportHeight / 2)
+			camera.position.y = Map.HEIGHT - camera.viewportHeight / 2;
+	}
 }
