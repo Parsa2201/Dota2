@@ -3,6 +3,7 @@ package com.ap.dota2.MainGame.map.entity.creature;
 import com.ap.dota2.MainGame.standards.Direction;
 import com.ap.dota2.MainGame.standards.Velocity;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -99,7 +100,11 @@ public class Hero extends Creature
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        return true;
+        if (button == Buttons.LEFT) {
+            
+            return true;
+        }
+        return false;
     }
 
     @Override
