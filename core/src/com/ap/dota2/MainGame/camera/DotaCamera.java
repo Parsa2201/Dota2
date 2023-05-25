@@ -25,7 +25,7 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
         batch.setProjectionMatrix(camera.combined);
 
         direction = Direction.NONE;
-        velocity = new Velocity(500, 500);
+        velocity = new Velocity(1000, 1000);
     }
 
     @Override
