@@ -15,8 +15,8 @@ public class Hero extends Creature
     {
         super(x, y);
         texture = new Texture("hero1.png");
-        velocity.setX(300);
-        velocity.setY(300);
+        velocity.setX(800);
+        velocity.setY(800);
         direction = Direction.NONE;
     }
 
@@ -99,7 +99,7 @@ public class Hero extends Creature
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        return false;
+        return true;
     }
 
     @Override
