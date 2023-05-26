@@ -3,11 +3,13 @@ package com.ap.dota2.MainMenu;
 import com.ap.dota2.Dota2Game;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -31,7 +33,7 @@ import jogamp.opengl.util.av.VideoPixelFormat;
 
 import java.io.File;
 
-public class UI {
+public class UI implements Screen {
     private final MainMenu mainMenu;
     private final Stage stage;
     private final Table rootTable;
@@ -62,10 +64,12 @@ public class UI {
 
 //        TextButton.TextButtonStyle myTextButtonStyle = new TextButton.TextButtonStyle(drawable, drawable, drawable, myFont);
 //        myTextButtonStyle.fontColor = Color.RED;
-        final Sound hoverSound = Gdx.audio.newSound(Gdx.files.internal("gta-san-andreas-menu-sound-1.mp3"));
+        final Sound hoverSound = Gdx.audio.newSound(Gdx.files.internal("Hover.mp3"));
+        final Sound clickSound = Gdx.audio.newSound(Gdx.files.internal("Click.mp3"));
         final Music backgroundMusic;
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("background_music.mp3"));
         backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.3F);
         backgroundMusic.play();
         rootTable.row();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
@@ -88,6 +92,7 @@ public class UI {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 mainMenu.startGame();
                 backgroundMusic.pause();
             }
@@ -111,6 +116,7 @@ public class UI {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
                 System.exit(0);
                 backgroundMusic.pause();
 
@@ -126,6 +132,49 @@ public class UI {
 
 //        rootTable.add(makeStartButton("startGold.png", "", Color.WHITE));
 //        rootTable.add(makeExitButton("exitGold.png", "", Color.YELLOW));
+    }
+
+    /*
+    *These implemented methods are from Screen interface, which are not decided to be deleted or not yet
+     */
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void render(float v) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Draw the stage
+        stage.act(v);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int i, int i1) {
+        stage.getViewport().update(i, i1, true);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 
 //    /**
