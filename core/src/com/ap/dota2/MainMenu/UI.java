@@ -29,7 +29,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.*;
-import jogamp.opengl.util.av.VideoPixelFormat;
 
 import java.io.File;
 
