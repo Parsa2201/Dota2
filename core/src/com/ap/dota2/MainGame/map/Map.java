@@ -1,5 +1,6 @@
 package com.ap.dota2.MainGame.map;
 
+import com.ap.dota2.MainGame.camera.DotaCamera;
 import com.ap.dota2.MainGame.map.entity.Entities;
 import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
@@ -13,14 +14,16 @@ public class Map implements DotaDrawable, Disposable, InputProcessor, HasAction
     private final Texture background;
     private final Obstacles obstacles;
     private final Entities entities;
+    public final DotaCamera camera;
     public static final int WIDTH = 16340;
     public static final int HEIGHT = 16340;
 
-    public Map()
+    public Map(DotaCamera camera)
     {
         background = new Texture("map - 2.png");
         obstacles = new Obstacles();
         entities = new Entities(this);
+        this.camera = camera;
     }
 
     @Override

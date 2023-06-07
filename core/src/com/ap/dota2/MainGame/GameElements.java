@@ -18,7 +18,7 @@ public class GameElements implements DotaDrawable, InputProcessor, HasAction, Re
     public GameElements(Batch batch)
     {
         camera = new DotaCamera(batch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        map = new Map();
+        map = new Map(camera);
     }
 
     @Override

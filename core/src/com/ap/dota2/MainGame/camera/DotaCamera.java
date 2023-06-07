@@ -12,9 +12,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class DotaCamera implements InputProcessor, Resizable, HasAction
 {
     private final Batch batch;
-    private final OrthographicCamera camera;
+    public final OrthographicCamera camera;
     private Direction direction;
-    private Velocity velocity;
+    private final Velocity velocity;
 
     public DotaCamera(Batch batch, int width, int height)
     {

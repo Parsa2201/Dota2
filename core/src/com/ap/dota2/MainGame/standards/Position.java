@@ -1,13 +1,15 @@
 package com.ap.dota2.MainGame.standards;
 
 import com.ap.dota2.MainGame.map.Map;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Position
 {
-    private int x;
-    private int y;
+    float x;
+    float y;
 
-    public Position(int x, int y)
+    public Position(float x, float y)
     {
         this.x = x;
         this.y = y;
@@ -15,22 +17,38 @@ public class Position
         verifyPosition();
     }
 
-    public int getX()
+    public Position(Vector2 vector)
+    {
+        this.x = vector.x;
+        this.y = vector.y;
+
+        verifyPosition();
+    }
+
+    public Position(Vector3 vector)
+    {
+        this.x = vector.x;
+        this.y = vector.y;
+
+        verifyPosition();
+    }
+
+    public float getX()
     {
         return x;
     }
 
-    public int getY()
+    public float getY()
     {
         return y;
     }
 
-    public void setX(int x)
+    public void setX(float x)
     {
         this.x = x;
         verifyPosition();
     }
-    public void setY(int y)
+    public void setY(float y)
     {
         this.y = y;
         verifyPosition();
@@ -38,8 +56,8 @@ public class Position
 
     public void addVelocity(Velocity velocity, float delta)
     {
-        x += (int) (velocity.getX() * delta);
-        y += (int) (velocity.getY() * delta);
+        x += velocity.getX() * delta;
+        y += velocity.getY() * delta;
 
         verifyPosition();
     }

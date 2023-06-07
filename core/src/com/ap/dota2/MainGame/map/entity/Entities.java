@@ -20,7 +20,7 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
     {
         entities = new Array<>();
         this.map = map;
-        entities.add(new Hero(1800, 1200));
+        entities.add(new Hero(map, 1800, 1200));
     }
 
     @Override

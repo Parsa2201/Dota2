@@ -1,5 +1,6 @@
 package com.ap.dota2.MainGame.map.entity.creature.fireball;
 
+import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.map.entity.Entity;
 import com.ap.dota2.MainGame.standards.Damage;
 import com.ap.dota2.MainGame.standards.Position;
@@ -13,9 +14,9 @@ public abstract class FireBall extends Entity
     protected final Position targetPosition;
     protected final Damage damage;
 
-    public FireBall(Position startPosition, Position targetPosition, Velocity velocity, Damage damage)
+    public FireBall(Map map, Position startPosition, Position targetPosition, Velocity velocity, Damage damage)
     {
-        super(startPosition.getX(), startPosition.getY());
+        super(map, startPosition.getX(), startPosition.getY());
         this.startPosition = startPosition;
         this.targetPosition = targetPosition;
         this.velocity = velocity;

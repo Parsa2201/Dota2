@@ -1,5 +1,6 @@
 package com.ap.dota2.MainGame.map.entity.creature;
 
+import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.standards.Direction;
 import com.ap.dota2.MainGame.standards.Position;
 import com.ap.dota2.MainGame.standards.Velocity;
@@ -7,22 +8,24 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector3;
 
 public class Hero extends Creature
 {
     private Texture texture;
-    private Direction direction;
-    private Movement movement;
+    //private Direction direction;
+    //private Movement movement;
 
-    public Hero(int x, int y)
+
+    public Hero(Map map,  float x, float y)
     {
-        super(x, y);
+        super(map, x, y, 800f);
         texture = new Texture("hero1.png");
-        velocity.setX(800);
-        velocity.setY(800);
-        direction = Direction.NONE;
-        movement = new Movement(this);
-        movement.start();
+        velocity.setX(speed);
+        velocity.setY(speed);
+        //direction = Direction.NONE;
+        //movement = new Movement(this);
+        //movement.start();
     }
 
     public Position getPosition() { return position; }
@@ -42,21 +45,23 @@ public class Hero extends Creature
     @Override
     public void move(float delta)
     {
-        switch (direction)
-        {
-            case UP:
-                position.addVelocity(velocity.onlyY(), delta);
-                break;
-            case DOWN:
-                position.addVelocity(velocity.onlyNegY(), delta);
-                break;
-            case LEFT:
-                position.addVelocity(velocity.onlyNegX(), delta);
-                break;
-            case RIGHT:
-                position.addVelocity(velocity.onlyX(), delta);
-                break;
-        }
+        destination.move(delta);
+//        switch (direction)
+//        {
+//            case UP:
+//                position.addVelocity(velocity.onlyY(), delta);
+//                break;
+//            case DOWN:
+//                position.addVelocity(velocity.onlyNegY(), delta);
+//                break;
+//            case LEFT:
+//                position.addVelocity(velocity.onlyNegX(), delta);
+//                break;
+//            case RIGHT:
+//                position.addVelocity(velocity.onlyX(), delta);
+//                break;
+//        }
+
     }
 
     /*
@@ -179,32 +184,33 @@ public class Hero extends Creature
     @Override
     public boolean keyDown(int keycode)
     {
-        System.out.println(keycode);
-        switch (keycode)
-        {
-            case Input.Keys.UP: case Input.Keys.W:
-                direction = Direction.UP;
-                return true;
-            case Input.Keys.DOWN: case Input.Keys.S:
-                direction = Direction.DOWN;
-                return true;
-            case Input.Keys.LEFT: case Input.Keys.A:
-                direction = Direction.LEFT;
-                return true;
-            case Input.Keys.RIGHT: case Input.Keys.D:
-                direction = Direction.RIGHT;
-                return true;
-
-            default:
-                direction = Direction.NONE;
-                return false;
-        }
+//        System.out.println(keycode);
+//        switch (keycode)
+//        {
+//            case Input.Keys.UP: case Input.Keys.W:
+//                direction = Direction.UP;
+//                return true;
+//            case Input.Keys.DOWN: case Input.Keys.S:
+//                direction = Direction.DOWN;
+//                return true;
+//            case Input.Keys.LEFT: case Input.Keys.A:
+//                direction = Direction.LEFT;
+//                return true;
+//            case Input.Keys.RIGHT: case Input.Keys.D:
+//                direction = Direction.RIGHT;
+//                return true;
+//
+//            default:
+//                direction = Direction.NONE;
+//                return false;
+//        }
+        return false;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        direction = Direction.NONE;
+        //direction = Direction.NONE;
         return false;
     }
 
@@ -244,9 +250,10 @@ public class Hero extends Creature
             // try {
             //     if (movement.isAlive()) movement.stop();
             // } catch (Exception e) {}
-            movement.Xtarget = screenX; movement.Ytarget = screenY;
+            //movement.Xtarget = screenX; movement.Ytarget = screenY;
             // movement.start();
 
+            destination.setDestination(map.camera.camera.unproject(new Vector3(screenX, screenY, 0f)));
             return true;
         }
         return false;
