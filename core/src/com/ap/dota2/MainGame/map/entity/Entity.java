@@ -1,5 +1,6 @@
 package com.ap.dota2.MainGame.map.entity;
 
+import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
 import com.ap.dota2.MainGame.standards.Position;
@@ -9,11 +10,13 @@ import com.badlogic.gdx.utils.Disposable;
 
 public abstract class Entity implements DotaDrawable, HasAction, InputProcessor, Disposable
 {
+    protected final Map map;
     protected final Position position;
 
-    public Entity(int x, int y)
+    public Entity(Map map, float x, float y)
     {
         position = new Position(x, y);
+        this.map = map;
     }
 
     @Override

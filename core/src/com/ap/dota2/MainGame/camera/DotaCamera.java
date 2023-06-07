@@ -12,9 +12,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class DotaCamera implements InputProcessor, Resizable, HasAction
 {
     private final Batch batch;
-    private final OrthographicCamera camera;
+    public final OrthographicCamera camera;
     private Direction direction;
-    private Velocity velocity;
+    private final Velocity velocity;
 
     public DotaCamera(Batch batch, int width, int height)
     {
@@ -25,7 +25,7 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
         batch.setProjectionMatrix(camera.combined);
 
         direction = Direction.NONE;
-        velocity = new Velocity(1000, 1000);
+        velocity = new Velocity(2500, 2500);
     }
 
     @Override
@@ -51,6 +51,14 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
     @Override
     public boolean keyTyped(char character)
     {
+		switch (character) {
+			case '-':
+				scrolled(-1, -1);
+				return true;
+			case '+':
+				scrolled(1, 1);
+				return true;
+		}
         return false;
     }
 
@@ -97,14 +105,14 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
     @Override
     public boolean scrolled(float amountX, float amountY)
     {
-        if(amountY > 0 && camera.zoom > 0.5f)
+        if(amountY > 0 && camera.zoom > -1.5f)
             camera.zoom -= amountY * 0.1f;
-        else if(amountY < 0 && camera.zoom < 1.5f)
+        else if(amountY < 0 && camera.zoom < 2.5f)
             camera.zoom -= amountY * 0.1f;
-        if(camera.zoom < 0.5f)
-            camera.zoom = 0.5f;
-        else if(camera.zoom > 1.5f)
-            camera.zoom = 1.5f;
+        if(camera.zoom < -1.5f)
+            camera.zoom = -1.5f;
+        else if(camera.zoom > 2.5f)
+            camera.zoom = 2.5f;
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
