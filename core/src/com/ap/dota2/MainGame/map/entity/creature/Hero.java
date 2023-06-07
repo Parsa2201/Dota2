@@ -223,7 +223,8 @@ public class Hero extends Creature
     @Override
     public synchronized boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        if (button == Buttons.LEFT) {
+        if (button == Buttons.RIGHT)
+        {
             // move((float)(screenX - position.getX()), (float)(screenY - position.getY()));
             // int dx = (screenX - position.getX()), dy = -(screenY - position.getY());
             // while (dx != 0 && dy != 0) {
