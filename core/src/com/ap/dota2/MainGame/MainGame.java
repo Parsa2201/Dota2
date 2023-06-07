@@ -1,6 +1,7 @@
 package com.ap.dota2.MainGame;
 
 import com.ap.dota2.Dota2Game;
+import com.ap.dota2.MainGame.server.Server;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -12,11 +13,16 @@ public class MainGame implements Screen, InputProcessor
     public final Dota2Game game;
     private final GameElements gameElements;
 
-    public MainGame(Dota2Game game)
+    public MainGame(Dota2Game game, boolean isServer)
     {
         this.game = game;
         gameElements = new GameElements(game.batch);
         Gdx.input.setInputProcessor(this);
+        if(isServer)
+        {
+            Thread serverThread = new Thread(new Server());
+            serverThread.start();
+        }
     }
 
     @Override
