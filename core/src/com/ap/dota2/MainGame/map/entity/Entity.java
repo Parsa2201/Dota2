@@ -24,7 +24,6 @@ public abstract class Entity implements DotaDrawable, HasAction, InputProcessor,
 
     @Override
     public abstract void action(float delta);
-
     @Override
     public abstract boolean keyDown(int keycode);
 
