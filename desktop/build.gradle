@@ -1,7 +1,6 @@
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../assets"]
-
 project.ext.mainClassName = "com.ap.dota2.DesktopLauncher"
 project.ext.assetsDir = new File("../assets")
 
