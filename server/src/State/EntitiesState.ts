@@ -28,7 +28,7 @@ export class EntitiesState
 
     public playerDisconnected(socket: Socket): void
     {
-        socket.broadcast.emit('playerDisconnected', {id: socket.id});
+        socket.broadcast.emit('disconnect', {id: socket.id});
         console.log('Player disconnected: ' + socket.id);
         this.playerIds = this.playerIds.filter(id => id !== socket.id);
     }
