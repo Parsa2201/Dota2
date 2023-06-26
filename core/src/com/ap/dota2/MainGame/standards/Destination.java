@@ -9,7 +9,6 @@ public class Destination
     final Position currentPosition;
     Position destination;
     float speed;
-    static final float EPSILON = 1f;
     boolean reached = true;
 
     public Destination(Position currentPosition, float speed)

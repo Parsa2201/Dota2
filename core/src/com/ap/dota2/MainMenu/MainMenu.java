@@ -40,7 +40,7 @@ public class MainMenu implements Screen
 
 	public void startGame()
 	{
-		game.setScreen(new com.ap.dota2.MainGame.MainGame(game));
+		game.setScreen(new com.ap.dota2.MainGame.MainGame(game, false));
 		dispose();
 	}
 
