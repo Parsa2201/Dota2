@@ -1,6 +1,7 @@
-package com.ap.dota2.MainGame.map.entity.creature;
+package com.ap.dota2.MainGame.map.entity.creature.hero;
 
 import com.ap.dota2.MainGame.map.Map;
+import com.ap.dota2.MainGame.map.entity.creature.Creature;
 import com.ap.dota2.MainGame.standards.Direction;
 import com.ap.dota2.MainGame.standards.Position;
 import com.ap.dota2.MainGame.standards.Velocity;
@@ -8,13 +9,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class Hero extends Creature
 {
     private Texture texture;
-    //private Direction direction;
-    //private Movement movement;
+    protected HeroType heroType = HeroType.FLAME;
 
 
     public Hero(Map map,  float x, float y)
@@ -28,12 +29,12 @@ public class Hero extends Creature
         //movement.start();
     }
 
-    public Position getPosition() { return position; }
+    public Vector2 getPosition() { return position; }
 
     @Override
     public void draw(Batch batch)
     {
-        batch.draw(texture, position.getX(), position.getY(), ((texture.getWidth() * 0.2f)), (texture.getHeight() * 0.2f));
+        batch.draw(texture, position.x, position.y, ((texture.getWidth() * 0.2f)), (texture.getHeight() * 0.2f));
     }
 
     @Override
@@ -282,6 +283,11 @@ public class Hero extends Creature
     public boolean scrolled(float amountX, float amountY)
     {
         return false;
+    }
+
+    public HeroType getHeroType()
+    {
+        return heroType;
     }
 
     @Override

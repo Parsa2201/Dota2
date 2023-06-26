@@ -6,39 +6,44 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Destination
 {
-    final Position currentPosition;
-    Position destination;
+    final Vector2 currentPosition;
+    Vector2 destination;
     float speed;
     boolean reached = true;
 
-    public Destination(Position currentPosition, float speed)
+    public Destination(Vector2 currentPosition, float speed)
     {
         this.currentPosition = currentPosition;
         this.destination = currentPosition;
         this.speed = speed;
     }
 
-    public void setDestination(Position destination)
+    public void setDestination(Vector2 destination)
     {
         this.destination = destination;
         reached = false;
     }
 
-    public void setDestination(Vector2 destination)
-    {
-        this.destination = new Position(destination);
-        reached = false;
-    }
-
     public void setDestination(Vector3 destination)
     {
-        this.destination = new Position(destination);
+        this.destination.x = destination.x;
+        this.
         reached = false;
     }
 
-    public Position getDestination()
+    public Vector2 getDestination()
     {
         return destination;
+    }
+
+    public float getX()
+    {
+        return destination.x;
+    }
+
+    public float getY()
+    {
+        return destination.y;
     }
 
     public float getSpeed()

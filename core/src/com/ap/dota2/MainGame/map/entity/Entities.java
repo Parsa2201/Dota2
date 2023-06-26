@@ -1,10 +1,9 @@
 package com.ap.dota2.MainGame.map.entity;
 
 import com.ap.dota2.MainGame.map.Map;
-import com.ap.dota2.MainGame.map.entity.creature.Hero;
+import com.ap.dota2.MainGame.map.entity.creature.hero.Hero;
 import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
-import com.ap.dota2.MainMenu.MainMenu;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;

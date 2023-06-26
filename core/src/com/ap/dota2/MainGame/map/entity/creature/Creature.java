@@ -27,4 +27,14 @@ public abstract class Creature extends Entity
     public abstract void move(float delta);
 
     public abstract void attack();
+
+    public Destination getDestination()
+    {
+        return destination;
+    }
+
+    public float getSpeed()
+    {
+        return speed;
+    }
 }

@@ -6,16 +6,17 @@ import com.ap.dota2.MainGame.standards.HasAction;
 import com.ap.dota2.MainGame.standards.Position;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 public abstract class Entity implements DotaDrawable, HasAction, InputProcessor, Disposable
 {
     protected final Map map;
-    protected final Position position;
+    protected final Vector2 position;
 
     public Entity(Map map, float x, float y)
     {
-        position = new Position(x, y);
+        position = new Vector2(x, y);
         this.map = map;
     }
 
