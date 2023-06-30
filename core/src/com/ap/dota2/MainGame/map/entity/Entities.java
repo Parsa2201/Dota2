@@ -12,7 +12,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import org.jetbrains.annotations.NotNull;
 
+import java.security.SecureRandom;
 import java.util.Iterator;
+
+import static com.badlogic.gdx.math.MathUtils.random;
 
 public class Entities implements InputProcessor, HasAction, Disposable, DotaDrawable, Iterable<Entity>
 {
@@ -23,10 +26,12 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
 
     public Entities(Map map)
     {
+        random = new SecureRandom();
+
         entities = new Array<>();
         this.map = map;
         SocketClientHandler socketClientHandler = SocketClientHandler.getInstance();
-        this.hero = new Hero(map, 1800, 1800);
+        this.hero = new Hero(map, 1700 + random(200), 1700 + random(200));
         hero.setId(SocketClientHandler.getInstance().getId());
         entities.add(hero);
         socketClientHandler.newHero(hero);

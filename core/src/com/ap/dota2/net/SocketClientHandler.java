@@ -20,6 +20,7 @@ public class SocketClientHandler implements Disposable
 {
     private static final String TAG = "NET.SOCKET-IO";
     private static String SERVER_URL = "http://localhost:8080";
+    private static final int maxPlayerCount = 2;
 
     private static SocketClientHandler socketClientHandler;
 
@@ -118,7 +119,7 @@ public class SocketClientHandler implements Disposable
             String id = data.getString("id");
             playerCount++;
             Gdx.app.log(TAG, "New player ID: " + id);
-            if(playerCount >= 2)
+            if(playerCount >= maxPlayerCount)
                 startGame();
         }
         catch (JSONException e)

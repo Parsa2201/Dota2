@@ -19,7 +19,7 @@ public class Hero extends Creature
     public Hero(Map map,  float x, float y)
     {
         super(map, x, y, 800f);
-        texture = new Texture("hero1.png");
+        texture = new Texture("Hero1.gif");
     }
 
     public Hero(Map map, float x, float y, float destinationX, float destinationY, float speed, HeroType heroType, String id)
@@ -33,7 +33,7 @@ public class Hero extends Creature
     {
         texture = switch (heroType)
         {
-            case FLAME -> new Texture("hero1.png");
+            case FLAME -> new Texture("Hero1.gif");
         };
     }
 
@@ -44,7 +44,7 @@ public class Hero extends Creature
     {
         if(texture == null)
             setTexture();
-        batch.draw(texture, position.x, position.y, ((texture.getWidth() * 0.2f)), (texture.getHeight() * 0.2f));
+        batch.draw(texture, position.x, position.y, ((texture.getWidth() * 0.4f)), (texture.getHeight() * 0.4f));
     }
 
     @Override

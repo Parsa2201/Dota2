@@ -6,6 +6,7 @@ import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -19,12 +20,17 @@ public class MainGame implements Screen, InputProcessor
         this.game = game;
         gameElements = new GameElements(game.batch);
         Gdx.input.setInputProcessor(this);
-//        if(isServer)
-//        {
-//            Thread serverThread = new Thread(new Server());
-//            serverThread.start();
-//        }
         SocketClientHandler.getInstance().setMainGame(this);
+        startBackgroundMusic();
+    }
+
+    private void startBackgroundMusic()
+    {
+        Music backgroundMusic;
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("Kronos.mp3"));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.5F);
+        backgroundMusic.play();
     }
 
     @Override

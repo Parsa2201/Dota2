@@ -15,11 +15,14 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
     public final OrthographicCamera camera;
     private Direction direction;
     private final Velocity velocity;
+    private boolean isInitializing = true;
 
     public DotaCamera(Batch batch, int width, int height)
     {
         this.batch = batch;
         camera = new OrthographicCamera(width, height);
+        System.out.println(camera.position);
+        camera.update();
 
         // set the SpiritBatch's projection matrix to the camera's combined matrix
         batch.setProjectionMatrix(camera.combined);
@@ -34,6 +37,11 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
         camera.setToOrtho(false, width, height);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+        if(isInitializing)
+        {
+            camera.position.add(1800, 1800, 0);
+            isInitializing = false;
+        }
     }
 
     @Override
@@ -84,8 +92,8 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
     public boolean mouseMoved(int screenX, int screenY)
     {
         //camera.position.set(screenX, screenY, 0);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
+//        camera.update();
+//        batch.setProjectionMatrix(camera.combined);
 
 
         if (screenX < 10)
@@ -132,6 +140,7 @@ public class DotaCamera implements InputProcessor, Resizable, HasAction
                 break;
             case RIGHT:
                 camera.position.x += velocity.getX() * delta;
+                System.out.println(camera.position);
                 verifyPosition();
                 break;
             case DOWN:
