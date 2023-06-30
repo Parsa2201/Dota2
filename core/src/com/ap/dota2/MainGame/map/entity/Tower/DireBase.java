@@ -9,7 +9,7 @@ public class DireBase extends BaseTower
     @Override
     public void draw(Batch batch)
     {
-        batch.draw(building, position.getX(), position.getY());//TODO : this need to decoration
+        batch.draw(building, position.x, position.y);//TODO : this need to decoration
     }
     public DireBase (Map map, int x, int y, float hp)
     {

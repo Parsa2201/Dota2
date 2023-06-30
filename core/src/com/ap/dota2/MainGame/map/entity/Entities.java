@@ -1,6 +1,7 @@
 package com.ap.dota2.MainGame.map.entity;
 
 import com.ap.dota2.MainGame.map.Map;
+import com.ap.dota2.MainGame.map.entity.Tower.DireBase;
 import com.ap.dota2.MainGame.map.entity.creature.hero.Hero;
 import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
@@ -29,6 +30,8 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
         hero.setId(SocketClientHandler.getInstance().getId());
         entities.add(hero);
         socketClientHandler.newHero(hero);
+
+        entities.add(new DireBase(map, 8000, 8000, 400));
     }
 
     public void addHero(Hero hero)

@@ -16,7 +16,7 @@ public class Dota2Game extends Game
 	/**
 	 * This is a boolean that is used to determine whether the game is in debug mode or not.
 	 */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	private boolean isMainGame;
 	private boolean screenChanged = false;
 

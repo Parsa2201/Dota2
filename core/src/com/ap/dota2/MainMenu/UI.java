@@ -81,16 +81,8 @@ public class UI implements Screen {
         background.setFillParent(true);
         stage.addActor(background);
 
-        TextureRegion buttonUp = new TextureRegion(new Texture(Gdx.files.internal("startSilver.png")));
-        TextureRegion buttonDown = new TextureRegion(new Texture(Gdx.files.internal("startGold.png")));
-        TextureRegion buttonOver = new TextureRegion(new Texture(Gdx.files.internal("startGold.png")));
-        Button.ButtonStyle style = new Button.ButtonStyle();
-        style.over = new TextureRegionDrawable(buttonOver);
-        style.up = new TextureRegionDrawable(buttonUp);
-        style.down = new TextureRegionDrawable(buttonDown);
 
-
-        Button startButton = new Button(style);
+        Button startButton = new Button(getStyle("startSilver.png", "startGold.png"));
         startButton.setPosition(250, 400);
         stage.addActor(startButton);
         startButton.addListener(new ClickListener() {
@@ -106,16 +98,9 @@ public class UI implements Screen {
                 hoverSound.play();
             }
         });
-        TextureRegion buttonUp1 = new TextureRegion(new Texture(Gdx.files.internal("exitSilver.png")));
-        TextureRegion buttonDown1 = new TextureRegion(new Texture(Gdx.files.internal("exitGold.png")));
-        TextureRegion buttonOver1 = new TextureRegion(new Texture(Gdx.files.internal("exitGold.png")));
-        Button.ButtonStyle style1 = new Button.ButtonStyle();
-        style1.over = new TextureRegionDrawable(buttonOver1);
-        style1.up = new TextureRegionDrawable(buttonUp1);
-        style1.down = new TextureRegionDrawable(buttonDown1);
 
 
-        Button exitButton = new Button(style1);
+        Button exitButton = new Button(getStyle("exitSilver.png", "exitGold.png"));
         exitButton.setSize(830,232);
         exitButton.setPosition(1020, 431);
         stage.addActor(exitButton);
@@ -135,7 +120,7 @@ public class UI implements Screen {
             }
         });
 
-        Button clientButton = new Button(style);
+        Button clientButton = new Button(getStyle("clientSilver.png", "clientGold.png"));
         clientButton.setSize(830, 232);
         clientButton.setPosition(1020, 100);
         stage.addActor(clientButton);
@@ -167,7 +152,7 @@ public class UI implements Screen {
             }
         });
 
-        Button serverButton = new Button(style);
+        Button serverButton = new Button(getStyle("serverSilver.png", "serverGold.png"));
         serverButton.setSize(830, 232);
         serverButton.setPosition(250, 100);
         stage.addActor(serverButton);
@@ -228,6 +213,18 @@ public class UI implements Screen {
     @Override
     public void hide() {
 
+    }
+
+    private Button.ButtonStyle getStyle(String upButton, String downButton)
+    {
+        TextureRegion buttonUp = new TextureRegion(new Texture(Gdx.files.internal(upButton)));
+        TextureRegion buttonDown = new TextureRegion(new Texture(Gdx.files.internal(downButton)));
+        TextureRegion buttonOver = new TextureRegion(new Texture(Gdx.files.internal(downButton)));
+        Button.ButtonStyle style = new Button.ButtonStyle();
+        style.over = new TextureRegionDrawable(buttonOver);
+        style.up = new TextureRegionDrawable(buttonUp);
+        style.down = new TextureRegionDrawable(buttonDown);
+        return style;
     }
 
     @Override
