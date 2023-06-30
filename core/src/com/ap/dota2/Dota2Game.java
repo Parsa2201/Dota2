@@ -1,5 +1,6 @@
 package com.ap.dota2;
 
+import com.ap.dota2.MainGame.MainGame;
 import com.ap.dota2.MainMenu.MainMenu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,8 @@ public class Dota2Game extends Game
 	 * This is a boolean that is used to determine whether the game is in debug mode or not.
 	 */
 	public static final boolean DEBUG = true;
+	private boolean isMainGame;
+	private boolean screenChanged = false;
 
 	@Override
 	public void create()
@@ -24,10 +27,31 @@ public class Dota2Game extends Game
 		this.setScreen(new MainMenu(this));
 	}
 
+	public void goToMainMenu()
+	{
+		isMainGame = false;
+		screenChanged = true;
+	}
+
+	public void startGame()
+	{
+		//this.setScreen(new MainMenu(this));
+		isMainGame = true;
+		screenChanged = true;
+	}
+
 	@Override
 	public void render()
 	{
 		super.render(); // important!
+		if(screenChanged)
+		{
+			if(isMainGame)
+				setScreen(new MainGame(this, false));
+			else
+				setScreen(new MainMenu(this));
+			screenChanged = false;
+		}
 	}
 
 	@Override

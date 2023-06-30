@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Creature extends Entity
 {
-    protected final Velocity velocity;
     protected final Damage damage;
     protected int range;
     protected boolean visible;
@@ -19,7 +18,6 @@ public abstract class Creature extends Entity
     public Creature(Map map, float x, float y, float speed)
     {
         super(map, x, y);
-        velocity = new Velocity(0, 0);
         damage = new Damage(0);
         this.speed = speed;
         destination = new Destination(position, speed);
@@ -28,10 +26,10 @@ public abstract class Creature extends Entity
     public Creature(Map map, float x, float y, float speed, float destinationX, float destinationY)
     {
         super(map, x, y);
-        velocity = new Velocity(0, 0);
         damage = new Damage(0);
         this.speed = speed;
-        destination = new Destination(new Vector2(destinationX, destinationY), speed);
+        destination = new Destination(position, speed);
+        destination.setDestination(new Vector2(destinationX, destinationY));
     }
 
     public abstract void move(float delta);

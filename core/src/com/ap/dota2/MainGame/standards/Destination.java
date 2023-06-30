@@ -14,7 +14,7 @@ public class Destination
     public Destination(Vector2 currentPosition, float speed)
     {
         this.currentPosition = currentPosition;
-        this.destination = currentPosition;
+        this.destination = currentPosition.cpy();
         this.speed = speed;
     }
 
@@ -27,7 +27,7 @@ public class Destination
     public void setDestination(Vector3 destination)
     {
         this.destination.x = destination.x;
-        this.
+        this.destination.y = destination.y;
         reached = false;
     }
 
@@ -76,7 +76,7 @@ public class Destination
 
         return MathUtils.atan2(destination.y - currentPosition.y, destination.x - currentPosition.x);
 
-        //return currentPosition.sub(destination).angleRad();
+        //return (destination.sub(currentPosition)).angleRad();
     }
 
     public void move(float delta)
@@ -84,16 +84,18 @@ public class Destination
         if(reached)
             return;
 
-        float distance = distance();
+        float distance = distance(currentPosition.x, currentPosition.y, destination.x, destination.y);
         float angle = angleRad();
 
 
         float deltaX = (speed * MathUtils.cos(angle)) * delta;
         float deltaY = (speed * MathUtils.sin(angle)) * delta;
 
-        if(distance() < distance(currentPosition.x + deltaX, currentPosition.y + deltaY, destination.x, destination.y))
+        if(distance < distance(currentPosition.x + deltaX, currentPosition.y + deltaY, destination.x, destination.y))
         {
             reached = true;
+            currentPosition.x = destination.x;
+            currentPosition.y = destination.y;
             return;
         }
 

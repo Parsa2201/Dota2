@@ -2,6 +2,7 @@ package com.ap.dota2.MainGame.map.entity.creature.hero;
 
 import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.map.entity.creature.Creature;
+import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Hero extends Creature
 {
-    private Texture texture;
+    private Texture texture = null;
     protected HeroType heroType = HeroType.FLAME;
     protected String id;
 
@@ -19,18 +20,13 @@ public class Hero extends Creature
     {
         super(map, x, y, 800f);
         texture = new Texture("hero1.png");
-        velocity.setX(speed);
-        velocity.setY(speed);
-        //direction = Direction.NONE;
-        //movement = new Movement(this);
-        //movement.start();
     }
 
-    public Hero(Map map, float x, float y, float destinationX, float destinationY, float speed, HeroType heroType)
+    public Hero(Map map, float x, float y, float destinationX, float destinationY, float speed, HeroType heroType, String id)
     {
         super(map, x, y, speed, destinationX, destinationY);
         this.heroType = heroType;
-        setTexture();
+        this.id = id;
     }
 
     private void setTexture()
@@ -46,6 +42,8 @@ public class Hero extends Creature
     @Override
     public void draw(Batch batch)
     {
+        if(texture == null)
+            setTexture();
         batch.draw(texture, position.x, position.y, ((texture.getWidth() * 0.2f)), (texture.getHeight() * 0.2f));
     }
 
@@ -59,134 +57,7 @@ public class Hero extends Creature
     public void move(float delta)
     {
         destination.move(delta);
-//        switch (direction)
-//        {
-//            case UP:
-//                position.addVelocity(velocity.onlyY(), delta);
-//                break;
-//            case DOWN:
-//                position.addVelocity(velocity.onlyNegY(), delta);
-//                break;
-//            case LEFT:
-//                position.addVelocity(velocity.onlyNegX(), delta);
-//                break;
-//            case RIGHT:
-//                position.addVelocity(velocity.onlyX(), delta);
-//                break;
-//        }
-
     }
-
-    /*
-    final float eps = 0.1f;
-    public void move(float dx, float dy) {
-        if (dx >= 0f) {
-            if (dy >= 0f) {
-                while (dx >= eps && dy >= eps) {
-                    dx -= eps; dy -= eps;
-                    direction = Direction.DOWN;
-                    move(eps);
-                    direction = Direction.RIGHT;
-                    move(eps);
-                }
-                while (dx >= eps) {
-                    dx -= eps;
-                    direction = Direction.DOWN;
-                    move(eps);
-                }
-                while (dy >= eps) {
-                    dy -= eps;
-                    direction = Direction.RIGHT;
-                    move(eps);
-                }
-                direction = Direction.DOWN;
-                if (dx < 0f) dx *= -1f;
-                move(dx);
-                direction = Direction.RIGHT;
-                if (dy < 0f) dy *= -1f;
-                move(dy);
-                direction = Direction.NONE;
-            } else {
-                while (dx >= eps && dy <= eps) {
-                    dx -= eps; dy += eps;
-                    direction = Direction.DOWN;
-                    move(eps);
-                    direction = Direction.LEFT;
-                    move(eps);
-                }
-                while (dx >= eps) {
-                    dx -= eps;
-                    direction = Direction.DOWN;
-                    move(eps);
-                }
-                while (dy <= eps) {
-                    dy += eps;
-                    direction = Direction.LEFT;
-                    move(eps);
-                }
-                direction = Direction.DOWN;
-                if (dx < 0f) dx *= -1f;
-                move(dx);
-                direction = Direction.LEFT;
-                if (dy < 0f) dy *= -1f;
-                move(dy);
-                direction = Direction.NONE;
-            }
-        } else {
-            if (dy >= 0f) {
-                while (dx <= eps && dy >= eps) {
-                    dx += eps; dy -= eps;
-                    direction = Direction.UP;
-                    move(eps);
-                    direction = Direction.RIGHT;
-                    move(eps);
-                }
-                while (dx <= eps) {
-                    dx += eps;
-                    direction = Direction.UP;
-                    move(eps);
-                }
-                while (dy >= eps) {
-                    dy -= eps;
-                    direction = Direction.RIGHT;
-                    move(eps);
-                }
-                direction = Direction.UP;
-                if (dx < 0f) dx *= -1f;
-                move(dx);
-                direction = Direction.RIGHT;
-                if (dy < 0f) dy *= -1f;
-                move(dy);
-                direction = Direction.NONE;
-            } else {
-                while (dx <= eps && dy <= eps) {
-                    dx += eps; dy += eps;
-                    direction = Direction.UP;
-                    move(eps);
-                    direction = Direction.LEFT;
-                    move(eps);
-                }
-                while (dx <= eps) {
-                    dx += eps;
-                    direction = Direction.DOWN;
-                    move(eps);
-                }
-                while (dy <= eps) {
-                    dy += eps;
-                    direction = Direction.LEFT;
-                    move(eps);
-                }
-                direction = Direction.UP;
-                if (dx < 0f) dx *= -1f;
-                move(dx);
-                direction = Direction.LEFT;
-                if (dy < 0f) dy *= -1f;
-                move(dy);
-                direction = Direction.NONE;
-            }
-        }
-    }
-    */
 
     @Override
     public void attack()
@@ -197,33 +68,12 @@ public class Hero extends Creature
     @Override
     public boolean keyDown(int keycode)
     {
-//        System.out.println(keycode);
-//        switch (keycode)
-//        {
-//            case Input.Keys.UP: case Input.Keys.W:
-//                direction = Direction.UP;
-//                return true;
-//            case Input.Keys.DOWN: case Input.Keys.S:
-//                direction = Direction.DOWN;
-//                return true;
-//            case Input.Keys.LEFT: case Input.Keys.A:
-//                direction = Direction.LEFT;
-//                return true;
-//            case Input.Keys.RIGHT: case Input.Keys.D:
-//                direction = Direction.RIGHT;
-//                return true;
-//
-//            default:
-//                direction = Direction.NONE;
-//                return false;
-//        }
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        //direction = Direction.NONE;
         return false;
     }
 
@@ -238,36 +88,8 @@ public class Hero extends Creature
     {
         if (button == Buttons.RIGHT)
         {
-            // move((float)(screenX - position.getX()), (float)(screenY - position.getY()));
-            // int dx = (screenX - position.getX()), dy = -(screenY - position.getY());
-            // while (dx != 0 && dy != 0) {
-            //     keyDown(InputKeys(Xdir(dx))); dx = moveToZero(dx);
-            //     keyDown(InputKeys(Ydir(dy))); dy = moveToZero(dy);
-            // }
-            // while (dx != 0) {
-            //     keyDown(InputKeys(Xdir(dx))); dx = moveToZero(dx);
-            // }
-            // while (dy != 0) {
-            //     keyDown(InputKeys(Ydir(dy))); dy = moveToZero(dy);
-            // }
-
-            // while (screenX != position.getX() && screenY != position.getY()) {
-            //     keyDown(InputKeys(Xdir(dx)));
-            //     keyDown(InputKeys(Ydir(dy)));
-            // }
-            // while (screenX != position.getX()) {
-            //     keyDown(InputKeys(Xdir(dx)));
-            // }
-            // while (screenY != position.getY()) {
-            //     keyDown(InputKeys(Ydir(dy)));
-            // }
-            // try {
-            //     if (movement.isAlive()) movement.stop();
-            // } catch (Exception e) {}
-            //movement.Xtarget = screenX; movement.Ytarget = screenY;
-            // movement.start();
-
             destination.setDestination(map.camera.camera.unproject(new Vector3(screenX, screenY, 0f)));
+            SocketClientHandler.getInstance().setDestination(destination);
             return true;
         }
         return false;
@@ -306,5 +128,20 @@ public class Hero extends Creature
     public void dispose()
     {
 
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setDestination(float destinationX, float destinationY)
+    {
+        destination.setDestination(new Vector2(destinationX, destinationY));
     }
 }

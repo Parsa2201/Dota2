@@ -9,19 +9,24 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import org.jetbrains.annotations.NotNull;
 
-public class Entities implements InputProcessor, HasAction, Disposable, DotaDrawable
+import java.util.Iterator;
+
+public class Entities implements InputProcessor, HasAction, Disposable, DotaDrawable, Iterable<Entity>
 {
     // a libgdx hash for entities
     private final Array<Entity> entities;
-    private final Map map;
+    public final Map map;
+    public final Hero hero;
 
     public Entities(Map map)
     {
         entities = new Array<>();
         this.map = map;
         SocketClientHandler socketClientHandler = SocketClientHandler.getInstance();
-        Hero hero = new Hero(map, 1800, 1800);
+        this.hero = new Hero(map, 1800, 1800);
+        hero.setId(SocketClientHandler.getInstance().getId());
         entities.add(hero);
         socketClientHandler.newHero(hero);
     }
@@ -34,81 +39,80 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
     @Override
     public boolean keyDown(int keycode)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.keyDown(keycode))
-                return true;
-
-        return false;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.keyDown(keycode))
+//                return true;
+        return hero.keyDown(keycode);
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.keyUp(keycode))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.keyUp(keycode))
+//                return true;
 
-        return false;
+        return hero.keyUp(keycode);
     }
 
     @Override
     public boolean keyTyped(char character)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.keyTyped(character))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.keyTyped(character))
+//                return true;
 
-        return false;
+        return hero.keyTyped(character);
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.touchDown(screenX, screenY, pointer, button))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.touchDown(screenX, screenY, pointer, button))
+//                return true;
 
-        return false;
+        return hero.touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.touchUp(screenX, screenY, pointer, button))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.touchUp(screenX, screenY, pointer, button))
+//                return true;
 
-        return false;
+        return hero.touchUp(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.touchDragged(screenX, screenY, pointer))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.touchDragged(screenX, screenY, pointer))
+//                return true;
 
-        return false;
+        return hero.touchDragged(screenX, screenY, pointer);
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.mouseMoved(screenX, screenY))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.mouseMoved(screenX, screenY))
+//                return true;
 
-        return false;
+        return hero.mouseMoved(screenX, screenY);
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY)
     {
-        for(Entity entity : new Array.ArrayIterator<>(entities))
-            if(entity.scrolled(amountX, amountY))
-                return true;
+//        for(Entity entity : new Array.ArrayIterator<>(entities))
+//            if(entity.scrolled(amountX, amountY))
+//                return true;
 
-        return false;
+        return hero.scrolled(amountX, amountY);
     }
 
     @Override
@@ -130,5 +134,12 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
     {
         for(Entity entity : new Array.ArrayIterator<>(entities))
             entity.draw(batch);
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Entity> iterator()
+    {
+        return new Array.ArrayIterator<>(entities);
     }
 }

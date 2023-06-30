@@ -1,7 +1,6 @@
 package com.ap.dota2.MainGame;
 
 import com.ap.dota2.Dota2Game;
-import com.ap.dota2.MainGame.server.Server;
 import com.ap.dota2.MainMenu.MainMenu;
 import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.gdx.Gdx;
@@ -25,7 +24,7 @@ public class MainGame implements Screen, InputProcessor
 //            Thread serverThread = new Thread(new Server());
 //            serverThread.start();
 //        }
-        SocketClientHandler.getInstance().setGame(this);
+        SocketClientHandler.getInstance().setMainGame(this);
     }
 
     @Override
@@ -39,12 +38,6 @@ public class MainGame implements Screen, InputProcessor
         game.batch.begin();
         gameElements.draw(game.batch);
         game.batch.end();
-    }
-
-    public void goToMainMenu()
-    {
-        game.setScreen(new MainMenu(game));
-        dispose();
     }
 
     @Override

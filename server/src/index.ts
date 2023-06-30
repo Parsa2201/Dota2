@@ -13,7 +13,7 @@ io.on('connection', (socket: Socket) =>
 
     // Handle Events
     socket.on('startGame', () => entitiesState.startGame(socket));
-    socket.on('disconnect', () => entitiesState.playerDisconnected(socket));
+    socket.on('playerDisconnected', () => entitiesState.playerDisconnected(socket));
     socket.on('newHero', (data) => entitiesState.newHero(socket, data));
     socket.on('heroDestinationChanged', (data) => entitiesState.heroDestinationChanged(socket, data));
     socket.on('heroSpeedChanged', (data) => entitiesState.heroSpeedChanged(socket, data));

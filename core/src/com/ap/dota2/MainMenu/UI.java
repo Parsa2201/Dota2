@@ -1,6 +1,7 @@
 package com.ap.dota2.MainMenu;
 
 import com.ap.dota2.Dota2Game;
+import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -30,6 +31,8 @@ import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class UI implements Screen {
     private final MainMenu mainMenu;
@@ -77,6 +80,7 @@ public class UI implements Screen {
         background.setSize(stage.getWidth(), stage.getHeight());
         background.setFillParent(true);
         stage.addActor(background);
+
         TextureRegion buttonUp = new TextureRegion(new Texture(Gdx.files.internal("startSilver.png")));
         TextureRegion buttonDown = new TextureRegion(new Texture(Gdx.files.internal("startGold.png")));
         TextureRegion buttonOver = new TextureRegion(new Texture(Gdx.files.internal("startGold.png")));
@@ -139,13 +143,45 @@ public class UI implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 clickSound.play();
-                System.exit(0);
+                try
+                {
+                    String IP = InetAddress.getLocalHost().getHostAddress();
+                    SocketClientHandler.getInstance().setGame(mainMenu.game);
+                    SocketClientHandler.getInstance().setIp(IP);
+                    // TODO: show the ip to the user
+                    // .
+                    // .
+                    // .
+
+
+                } catch (UnknownHostException e)
+                {
+                    throw new RuntimeException(e);
+                }
                 backgroundMusic.pause();
-
-
             }
         });
         clientButton.addListener(new InputListener() {
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                hoverSound.play();
+            }
+        });
+
+        Button serverButton = new Button(style);
+        serverButton.setSize(830, 232);
+        serverButton.setPosition(250, 100);
+        stage.addActor(serverButton);
+        serverButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
+                String IP = "localhost"; // TODO: set the ip from a text field
+                SocketClientHandler.getInstance().setGame(mainMenu.game);
+                SocketClientHandler.getInstance().setIp(IP);
+                backgroundMusic.pause();
+            }
+        });
+        serverButton.addListener(new InputListener() {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 hoverSound.play();
             }
