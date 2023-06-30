@@ -1,6 +1,7 @@
-package com.ap.dota2.MainGame.map.entity;
+package com.ap.dota2.MainGame.map.entity.Tower;
 
 import com.ap.dota2.MainGame.map.Map;
+import com.ap.dota2.MainGame.map.entity.Entity;
 import com.ap.dota2.MainGame.standards.Damage;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -8,7 +9,7 @@ public class Tower extends Entity
 {
     private final Damage damage;
 
-    public Tower(Map map, float x, float y)
+    public Tower(Map map, int x, int y)
     {
         super(map, x, y);
         damage = new Damage(10);
