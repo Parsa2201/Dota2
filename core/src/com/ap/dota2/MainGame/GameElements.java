@@ -5,6 +5,7 @@ import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
 import com.ap.dota2.MainGame.standards.Resizable;
 import com.ap.dota2.MainGame.map.Map;
+import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,6 +20,7 @@ public class GameElements implements DotaDrawable, InputProcessor, HasAction, Re
     {
         camera = new DotaCamera(batch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         map = new Map(camera);
+        SocketClientHandler.getInstance().setMap(map);
     }
 
     @Override

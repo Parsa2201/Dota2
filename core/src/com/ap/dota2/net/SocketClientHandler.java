@@ -1,6 +1,9 @@
 package com.ap.dota2.net;
 
+import com.ap.dota2.MainGame.MainGame;
+import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.map.entity.creature.hero.Hero;
+import com.ap.dota2.MainGame.map.entity.creature.hero.HeroType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Disposable;
 import io.socket.client.IO;
@@ -19,6 +22,8 @@ public class SocketClientHandler implements Disposable
 
     private Socket socket;
     private String id = null;
+    private Map map;
+    private MainGame game;
 
     private SocketClientHandler()
     {
@@ -67,6 +72,16 @@ public class SocketClientHandler implements Disposable
         SERVER_URL = "http://" + ip + ":8080";
     }
 
+    public void setMap(Map map)
+    {
+        this.map = map;
+    }
+
+    public void setGame(MainGame game)
+    {
+        this.game = game;
+    }
+
     private void handleMySocketId(Object... objects)
     {
         var data = (JSONObject) objects[0];
@@ -84,7 +99,25 @@ public class SocketClientHandler implements Disposable
 
     private void handleNewHero(Object... objects)
     {
-        // TODO
+        var data = (JSONObject) objects[0];
+        try
+        {
+            float x = (float) data.getDouble("x");
+            float y = (float) data.getDouble("y");
+            float destinationX = (float) data.getDouble("destinationX");
+            float destinationY = (float) data.getDouble("destinationY");
+            float speed = (float) data.getDouble("speed");
+            HeroType heroType = HeroType.values()[data.getInt("heroType")];
+
+            Hero hero = new Hero(map, x, y, destinationX, destinationY, speed, heroType);
+
+            map.entities.addHero(hero);
+            Gdx.app.log(TAG, "New hero added Type: " + heroType);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void handlePlayerDisconnected(Object... objects)

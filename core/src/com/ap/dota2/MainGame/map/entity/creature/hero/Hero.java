@@ -2,10 +2,6 @@ package com.ap.dota2.MainGame.map.entity.creature.hero;
 
 import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.map.entity.creature.Creature;
-import com.ap.dota2.MainGame.standards.Direction;
-import com.ap.dota2.MainGame.standards.Position;
-import com.ap.dota2.MainGame.standards.Velocity;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,6 +12,7 @@ public class Hero extends Creature
 {
     private Texture texture;
     protected HeroType heroType = HeroType.FLAME;
+    protected String id;
 
 
     public Hero(Map map,  float x, float y)
@@ -27,6 +24,21 @@ public class Hero extends Creature
         //direction = Direction.NONE;
         //movement = new Movement(this);
         //movement.start();
+    }
+
+    public Hero(Map map, float x, float y, float destinationX, float destinationY, float speed, HeroType heroType)
+    {
+        super(map, x, y, speed, destinationX, destinationY);
+        this.heroType = heroType;
+        setTexture();
+    }
+
+    private void setTexture()
+    {
+        texture = switch (heroType)
+        {
+            case FLAME -> new Texture("hero1.png");
+        };
     }
 
     public Vector2 getPosition() { return position; }

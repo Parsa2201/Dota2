@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.Disposable;
 public class Map implements DotaDrawable, Disposable, InputProcessor, HasAction
 {
     private final Texture background;
-    private final Obstacles obstacles;
-    private final Entities entities;
+    public final Obstacles obstacles;
+    public final Entities entities;
     public final DotaCamera camera;
     public static final int WIDTH = 16340;
     public static final int HEIGHT = 16340;

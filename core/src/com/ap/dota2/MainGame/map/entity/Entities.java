@@ -4,6 +4,7 @@ import com.ap.dota2.MainGame.map.Map;
 import com.ap.dota2.MainGame.map.entity.creature.hero.Hero;
 import com.ap.dota2.MainGame.standards.DotaDrawable;
 import com.ap.dota2.MainGame.standards.HasAction;
+import com.ap.dota2.net.SocketClientHandler;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
@@ -19,7 +20,15 @@ public class Entities implements InputProcessor, HasAction, Disposable, DotaDraw
     {
         entities = new Array<>();
         this.map = map;
-        entities.add(new Hero(map, 1800, 1200));
+        SocketClientHandler socketClientHandler = SocketClientHandler.getInstance();
+        Hero hero = new Hero(map, 1800, 1800);
+        entities.add(hero);
+        socketClientHandler.newHero(hero);
+    }
+
+    public void addHero(Hero hero)
+    {
+        entities.add(hero);
     }
 
     @Override

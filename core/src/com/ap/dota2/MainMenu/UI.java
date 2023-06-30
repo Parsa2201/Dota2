@@ -84,6 +84,8 @@ public class UI implements Screen {
         style.over = new TextureRegionDrawable(buttonOver);
         style.up = new TextureRegionDrawable(buttonUp);
         style.down = new TextureRegionDrawable(buttonDown);
+
+
         Button startButton = new Button(style);
         startButton.setPosition(250, 400);
         stage.addActor(startButton);
@@ -107,6 +109,8 @@ public class UI implements Screen {
         style1.over = new TextureRegionDrawable(buttonOver1);
         style1.up = new TextureRegionDrawable(buttonUp1);
         style1.down = new TextureRegionDrawable(buttonDown1);
+
+
         Button exitButton = new Button(style1);
         exitButton.setSize(830,232);
         exitButton.setPosition(1020, 431);
@@ -122,6 +126,26 @@ public class UI implements Screen {
             }
         });
         exitButton.addListener(new InputListener() {
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                hoverSound.play();
+            }
+        });
+
+        Button clientButton = new Button(style);
+        clientButton.setSize(830, 232);
+        clientButton.setPosition(1020, 100);
+        stage.addActor(clientButton);
+        clientButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                clickSound.play();
+                System.exit(0);
+                backgroundMusic.pause();
+
+
+            }
+        });
+        clientButton.addListener(new InputListener() {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 hoverSound.play();
             }

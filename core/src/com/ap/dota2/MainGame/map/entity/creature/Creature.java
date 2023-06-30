@@ -5,6 +5,7 @@ import com.ap.dota2.MainGame.map.entity.Entity;
 import com.ap.dota2.MainGame.standards.Damage;
 import com.ap.dota2.MainGame.standards.Destination;
 import com.ap.dota2.MainGame.standards.Velocity;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class Creature extends Entity
 {
@@ -22,6 +23,15 @@ public abstract class Creature extends Entity
         damage = new Damage(0);
         this.speed = speed;
         destination = new Destination(position, speed);
+    }
+
+    public Creature(Map map, float x, float y, float speed, float destinationX, float destinationY)
+    {
+        super(map, x, y);
+        velocity = new Velocity(0, 0);
+        damage = new Damage(0);
+        this.speed = speed;
+        destination = new Destination(new Vector2(destinationX, destinationY), speed);
     }
 
     public abstract void move(float delta);
